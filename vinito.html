@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invitación 🍷</title>
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #1a1a1a, #3b0a2a);
+        color: white;
+        font-family: 'Segoe UI', sans-serif;
+        text-align: center;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.1);
+        padding: 25px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 20px rgba(255,0,100,0.3);
+        position: relative;
+        width: 90%;
+        max-width: 320px;
+        height: 240px;
+    }
+
+    h1 {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    button {
+        padding: 10px 18px;
+        margin: 8px;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    #yes {
+        background: #ff4d88;
+        color: white;
+    }
+
+    #no {
+        background: #444;
+        color: white;
+        position: absolute;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1 id="question">¿Gaby vamos por un vinito? 🍷</h1>
+    <button id="yes">Sí 💖</button>
+    <button id="no">No 😢</button>
+</div>
+
+<script>
+let noBtn = document.getElementById("no");
+let yesBtn = document.getElementById("yes");
+let text = document.getElementById("question");
+
+let phrases = [
+    "¿Segura? 😏",
+    "Piénsalo bien... 🍷",
+    "Te prometo que será divertido 😌",
+    "Vamos, di que sí 💖",
+    "Última oportunidad 😳"
+];
+
+let size = 14;
+let index = 0;
+
+function moveButton() {
+    const card = document.querySelector(".card");
+
+    const cardRect = card.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    const maxX = card.clientWidth - btnRect.width;
+    const maxY = card.clientHeight - btnRect.height;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    if(index < phrases.length){
+        text.innerText = phrases[index];
+        index++;
+    }
+
+    size += 1.5;
+    yesBtn.style.fontSize = size + "px";
+}
+
+// PC
+noBtn.addEventListener("mouseover", moveButton);
+
+// CELULAR 👇
+noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault(); // evita que lo llegue a presionar
+    moveButton();
+});
+
+// Por si logra hacer click (PC)
+noBtn.addEventListener("click", moveButton);
+
+// Botón sí
+yesBtn.addEventListener("click", () => {
+    text.innerText = "Sabía que dirías que sí 😍🍷";
+    noBtn.style.display = "none";
+    yesBtn.style.transform = "scale(1.2)";
+});
+</script>
+
+</body>
+</html>
